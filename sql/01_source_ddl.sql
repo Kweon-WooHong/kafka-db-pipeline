@@ -1,0 +1,37 @@
+-- =========================================================
+-- Source DB (Oracle 11G) : EMP_SRC
+-- Toad for Oracle 에서 SRC_USER 계정으로 접속 후 실행
+-- =========================================================
+
+CREATE TABLE EMP_SRC (
+    EMP_ID      NUMBER(10)      NOT NULL,
+    EMP_NAME    VARCHAR2(100)   NOT NULL,
+    DEPT_CD     VARCHAR2(20),
+    SALARY      NUMBER(12,2),
+    HIRE_DATE   DATE,
+    UPD_DT      DATE            DEFAULT SYSDATE NOT NULL,   -- 증분(CDC) 기준 컬럼
+    CONSTRAINT PK_EMP_SRC PRIMARY KEY (EMP_ID)
+);
+
+-- INSERT/UPDATE 시 UPD_DT 자동 갱신 (실시간 파이프라인의 변경 감지 기준점)
+CREATE OR REPLACE TRIGGER TRG_EMP_SRC_UPD
+BEFORE INSERT OR UPDATE ON EMP_SRC
+FOR EACH ROW
+BEGIN
+    :NEW.UPD_DT := SYSDATE;
+END;
+/
+
+-- 증분 조회 성능을 위한 인덱스
+CREATE INDEX IX_EMP_SRC_UPD_DT ON EMP_SRC (UPD_DT);
+
+-- 테스트용 초기 데이터
+INSERT INTO EMP_SRC (EMP_ID, EMP_NAME, DEPT_CD, SALARY, HIRE_DATE) VALUES (1001, '김철수', 'IT01', 5500000, DATE '2020-03-02');
+INSERT INTO EMP_SRC (EMP_ID, EMP_NAME, DEPT_CD, SALARY, HIRE_DATE) VALUES (1002, '이영희', 'IT01', 6200000, DATE '2019-07-15');
+INSERT INTO EMP_SRC (EMP_ID, EMP_NAME, DEPT_CD, SALARY, HIRE_DATE) VALUES (1003, '박민수', 'FN02', 4800000, DATE '2021-01-11');
+COMMIT;
+
+-- (스트리밍 테스트 시 사용) 신규 INSERT / 변경 UPDATE 예시
+-- INSERT INTO EMP_SRC (EMP_ID, EMP_NAME, DEPT_CD, SALARY, HIRE_DATE) VALUES (1004, '최지훈', 'IT02', 5000000, SYSDATE);
+-- UPDATE EMP_SRC SET SALARY = SALARY * 1.1 WHERE EMP_ID = 1001;
+-- COMMIT;
