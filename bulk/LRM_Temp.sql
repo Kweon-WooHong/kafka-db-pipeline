@@ -1,7 +1,7 @@
--- [°øÅë] LRM ÀÛ¾÷ QUERY
+-- [ê³µí†µ] LRM ìž‘ì—… QUERY
 -------------------------------------------------------------------------------------------------------------
 
--- (1) Å×ÀÌºí ¸ñ·Ï
+-- (1) í…Œì´ë¸” ëª©ë¡
 SELECT
        --'TRUNCATE TABLE ' || A.OWNER || '.' || A.TABLE_NAME || ';'
        --'UNION ALL SELECT ''' || A.TABLE_NAME || ''' AS TBL_ID, ''' || B.COMMENTS || ''' AS TBL_NAME, COUNT(*) AS CNT FROM ' || A.OWNER || '.' || A.TABLE_NAME AS TBL
@@ -20,7 +20,7 @@ SELECT
 ;
 
 
--- (2) ÄÃ·³, ÄÚ¸àÆ®
+-- (2) ì»¬ëŸ¼, ì½”ë©˜íŠ¸
 SELECT
        --'     , #' || RPAD(LOWER(A.COLUMN_NAME) || '#', 20, ' ')|| ' AS '  || RPAD(A.COLUMN_NAME, 20, ' ') || ' /* ' || B.COMMENTS || ' */'
        --'   AND ' || RPAD(A.COLUMN_NAME, 30, ' ') || ' = ' || CASE WHEN A.DATA_TYPE = 'NUMBER' THEN '0000  ' ELSE '''AAAA''' END || ' /* ' || B.COMMENTS || ' */'
@@ -41,34 +41,35 @@ SELECT
    AND A.OWNER       = 'LRM'
    AND A.TABLE_NAME  = 'LRC401P'
    --AND A.TABLE_NAME LIKE 'RND%'
-   --AND B.COMMENTS LIKE '%±Ý¾×'
+   --AND B.COMMENTS LIKE '%ê¸ˆì•¡'
  ORDER BY A.TABLE_NAME
         , A.COLUMN_ID
 ;
 
 
-LRM.LRC400P  /* »êÃâ_Æ÷Áö¼Ç¸¶½ºÅÍ³»¿ªP */
+-------------------------------------------------------------------------------------------------------------
+LRM.LRC400P  /* ì‚°ì¶œ_í¬ì§€ì…˜ë§ˆìŠ¤í„°ë‚´ì—­P */
 
 ;
 
-SELECT STND_DATE                      /* ±âÁØ_ÀÏÀÚ */
-     , JOB_DAY_CLS_CODE               /* ÀÛ¾÷_ÀÏ_±¸ºÐ_ÄÚµå */
-     , PSTN_ID                        /* Æ÷Áö¼Ç_ID */
-     , PSTN_SRC_CLS_CODE              /* Æ÷Áö¼Ç_¿øÃµ_±¸ºÐ_ÄÚµå */
-     , PSTN_SRNO                      /* Æ÷Áö¼Ç_ÀÏ·Ã¹øÈ£ */
-     , RMCOA_CODE                     /* RMCoA_ÄÚµå */
-     , OCRN_DATE                      /* ¹ß»ý_ÀÏÀÚ */
-     , MTRT_DATE                      /* ¸¸±â_ÀÏÀÚ */
-     , PSTN_CLS_CODE                  /* Æ÷Áö¼Ç_±¸ºÐ_ÄÚµå */
-     , SEL_BUY_CLS_CODE               /* ¸Åµµ_¸Å¼ö_±¸ºÐ_ÄÚµå */
-     , PAY_RCVN_CLS_CODE              /* Áö±Þ_¼öÃë_±¸ºÐ_ÄÚµå */
-     , CRNC_CODE                      /* ÅëÈ­_ÄÚµå */
-     , CSFL_OCRN_AMT                  /* Çö±ÝÈå¸§_¹ß»ý_±Ý¾× */
-     , PSTN_DVSN_RATE                 /* Æ÷Áö¼Ç_ºÐÇÒ_ºñÀ² */
-     , BS_VRFC_STND_AMT               /* BS_´ë»ç_±âÁØ_±Ý¾× */
-     , PROC_PGM_ID                    /* Ã³¸®_ÇÁ·Î±×·¥_ID */
-     , PROC_DT                        /* Ã³¸®_ÀÏ½Ã */
-  FROM LRM.LRC401P  /* »êÃâ_±âÃÊÆ÷Áö¼Ç³»¿ªP */
+SELECT STND_DATE                      /* ê¸°ì¤€_ì¼ìž */
+     , JOB_DAY_CLS_CODE               /* ìž‘ì—…_ì¼_êµ¬ë¶„_ì½”ë“œ */
+     , PSTN_ID                        /* í¬ì§€ì…˜_ID */
+     , PSTN_SRC_CLS_CODE              /* í¬ì§€ì…˜_ì›ì²œ_êµ¬ë¶„_ì½”ë“œ */
+     , PSTN_SRNO                      /* í¬ì§€ì…˜_ì¼ë ¨ë²ˆí˜¸ */
+     , RMCOA_CODE                     /* RMCoA_ì½”ë“œ */
+     , OCRN_DATE                      /* ë°œìƒ_ì¼ìž */
+     , MTRT_DATE                      /* ë§Œê¸°_ì¼ìž */
+     , PSTN_CLS_CODE                  /* í¬ì§€ì…˜_êµ¬ë¶„_ì½”ë“œ */
+     , SEL_BUY_CLS_CODE               /* ë§¤ë„_ë§¤ìˆ˜_êµ¬ë¶„_ì½”ë“œ */
+     , PAY_RCVN_CLS_CODE              /* ì§€ê¸‰_ìˆ˜ì·¨_êµ¬ë¶„_ì½”ë“œ */
+     , CRNC_CODE                      /* í†µí™”_ì½”ë“œ */
+     , CSFL_OCRN_AMT                  /* í˜„ê¸ˆíë¦„_ë°œìƒ_ê¸ˆì•¡ */
+     , PSTN_DVSN_RATE                 /* í¬ì§€ì…˜_ë¶„í• _ë¹„ìœ¨ */
+     , BS_VRFC_STND_AMT               /* BS_ëŒ€ì‚¬_ê¸°ì¤€_ê¸ˆì•¡ */
+     , PROC_PGM_ID                    /* ì²˜ë¦¬_í”„ë¡œê·¸ëž¨_ID */
+     , PROC_DT                        /* ì²˜ë¦¬_ì¼ì‹œ */
+  FROM LRM.LRC401P  /* ì‚°ì¶œ_ê¸°ì´ˆí¬ì§€ì…˜ë‚´ì—­P */
  WHERE 1 = 1
    AND STND_DATE = '20171231'
    AND JOB_DAY_CLS_CODE = 'M'
@@ -77,7 +78,15 @@ SELECT STND_DATE                      /* ±âÁØ_ÀÏÀÚ */
 ;
 
 SELECT STND_DATE, JOB_DAY_CLS_CODE, COUNT(*)
-  FROM LRM.LRC401P  /* »êÃâ_±âÃÊÆ÷Áö¼Ç³»¿ªP */
+  FROM LRM.LRC401P  /* ì‚°ì¶œ_ê¸°ì´ˆí¬ì§€ì…˜ë‚´ì—­P */
  GROUP BY STND_DATE, JOB_DAY_CLS_CODE
  ORDER BY STND_DATE, JOB_DAY_CLS_CODE
+;
+
+
+ 
+ 
+SELECT *
+  FROM LRM.EMP_SRC
+ ORDER BY EMP_ID
 ;
