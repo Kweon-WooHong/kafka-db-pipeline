@@ -12,7 +12,7 @@ Data Pipeline 환경을 구성하기 위해 필요한 작업이나 프로그램�
   ## 설치된 관련 S/W
     - Docker
       + Oracle Express
-      + kafka-server(apache/kafka)
+      + kafka (apache/kafka)
     - Oracle 11G
     - Toad for Oracle 10.6
     - Python 3.12 (Confluent-Kafka 설치됨)
@@ -22,7 +22,7 @@ Data Pipeline 환경을 구성하기 위해 필요한 작업이나 프로그램�
   - Source DB : Oracle 11G
   - Target DB : Oracle Express(Docker Containter)
   - Ingestion
-    + kafka-server(Docker Containter)를 이용한 Data 입수/적재 구현
+    + kafka(Docker Containter)를 이용한 Data 입수/적재 구현
     + Producer / Consumer 는 python을 이용하여 구현함
     + Producer / Consumer 는 batch와 real-time streaming 두가지의 경우 모두에 대해 구현할 것
 
@@ -94,15 +94,19 @@ Oracle Express, Kafka 컨테이너가 이미 설치되어 있다는 전제이므
 docker ps
 ```
 
-컨테이너명(예: `kafka-server`, `oracle-xe`)과 포트 매핑을 확인해 두세요.
+컨테이너명(예: `kafka`, `oracle-xe`)과 포트 매핑을 확인해 두세요.
 `kafka/create_topics.sh` 와 `config/db_config.py` 의 값을 여기서 확인한
 실제 이름/포트로 맞춰야 합니다.
 
 ```bash
 # 포트 매핑 확인 예시
-docker port kafka-server
+docker port kafka  # kafka 컨테이너 변경 kafka-server
 docker port oracle-xe
 ```
+9092/tcp -> 0.0.0.0:9092
+9092/tcp -> [::]:9092
+1521/tcp -> 0.0.0.0:1522
+1521/tcp -> [::]:1522
 
 ### 1-2. Python 가상환경 및 패키지 설치
 
@@ -154,7 +158,7 @@ emp.src.stream
 
 WSL이나 Git Bash가 없다면 명령어를 하나씩 직접 실행해도 됩니다.
 ```bash
-docker exec -it kafka-server /opt/kafka/bin/kafka-topics.sh \
+docker exec -it kafka /opt/kafka/bin/kafka-topics.sh \
   --create --bootstrap-server localhost:9092 \
   --topic emp.src.full --partitions 3 --replication-factor 1
 ```
