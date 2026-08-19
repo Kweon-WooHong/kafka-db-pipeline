@@ -1,0 +1,5 @@
+﻿.venv/
+{sql,config,kafka,batch,streaming}/
+config/__pycache__/
+*.pyc
+.env

@@ -5,7 +5,7 @@
 #            (컨테이너명은 본인 환경에 맞게 CONTAINER_NAME 수정)
 # =========================================================
 
-CONTAINER_NAME=kafka    # docker ps 로 확인한 실제 컨테이너 이름으로 교체
+CONTAINER_NAME=kafka-local    # docker ps 로 확인한 실제 컨테이너 이름으로 교체
 
 # 생성 결과 확인
 docker exec -it ${CONTAINER_NAME} /opt/kafka/bin/kafka-topics.sh \
